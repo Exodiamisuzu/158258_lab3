@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Number Guessing Game</title>
+    <script src="randominteger.js"></script> <!-- Include external JavaScript file -->
+</head>
+<body>
+    <h1>Number Guessing Game</h1>
+    <div id="message"></div>
+    <div id="guesses"></div>
+    <input type="number" id="guess" placeholder="Enter your guess" />
+    <button id="submit">Submit Guess</button>
+    <button id="restart" style="display:none;">Restart</button>
+
+    <script>
+        let randomNumber = randomInt(); // Generate random number
+        let attempts = 10; // Maximum attempts
+        let guessedNumbers = []; // Store guessed numbers
+
+        const messageDiv = document.getElementById('message');
+        const guessesDiv = document.getElementById('guesses');
+        const guessInput = document.getElementById('guess');
+        const submitButton = document.getElementById('submit');
+        const restartButton = document.getElementById('restart');
+
+        submitButton.addEventListener('click', () => {
+            const userGuess = parseInt(guessInput.value);
+            guessedNumbers.push(userGuess);
+            attempts--;
+
+            if (userGuess === randomNumber) {
+                messageDiv.innerText = 'Congratulations! You guessed it right!';
+                endGame();
+            } else if (attempts === 0) {
+                messageDiv.innerText = `Game over! The correct answer was ${randomNumber}.`;
+                endGame();
+            } else {
+                if (userGuess < randomNumber) {
+                    messageDiv.innerText = 'Too low!';
+                } else {
+                    messageDiv.innerText = 'Too high!';
+                }
+                guessesDiv.innerText = `You have guessed: ${guessedNumbers.join(', ')}`;
+            }
+
+            guessInput.value = ''; // Clear input field
+        });
+
+        restartButton.addEventListener('click', () => {
+            randomNumber = randomInt();
+            attempts = 10;
+            guessedNumbers = [];
+            messageDiv.innerText = '';
+            guessesDiv.innerText = '';
+            guessInput.value = '';
+            submitButton.style.display = 'inline';
+            restartButton.style.display = 'none';
+        });
+
+        function endGame() {
+            submitButton.style.display = 'none';
+            restartButton.style.display = 'inline';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigator Object Demo</title>
+</head>
+<body>
+    <script>
+        // Demonstrating the 'navigator' object's 'userAgent' property
+        document.write("<h1>Navigator Object Demo</h1>");
+        document.write("<p>Your user agent is: " + navigator.userAgent + "</p>");
+
+        // Demonstrating the 'navigator' object's 'geolocation' method
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                document.write("<p>Your current position is: Latitude " + position.coords.latitude + ", Longitude " + position.coords.longitude + "</p>");
+            }, function() {
+                document.write("<p>Unable to retrieve your location.</p>");
+            });
+        } else {
+            document.write("<p>Geolocation is not supported by this browser.</p>");
+        }
+
+        // Demonstrating the 'navigator' object's 'onLine' property
+        document.write("<h1>Navigator Online Status Demo</h1>");
+        document.write("<p>Your online status is: " + (navigator.onLine ? "Online" : "Offline") + "</p>");
+    </script>
+</body>
+</html>
